@@ -7,6 +7,8 @@ import com.example.goodreads.model.Book;
 import java.util.*;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 @Service
 public class BookJpaService implements BookRepository {
@@ -22,7 +24,13 @@ public class BookJpaService implements BookRepository {
 
     @Override
     public Book getBookById(int bookId){
-        return new Book(3,"sample book","sample.png");
+        try{
+            Book book = bookJpaRepository.findById(bookId).get();
+            return book;
+        }
+        catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
