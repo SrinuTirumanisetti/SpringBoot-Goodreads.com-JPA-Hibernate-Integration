@@ -41,7 +41,21 @@ public class BookJpaService implements BookRepository {
 
     @Override
     public Book updateBook(int bookId,Book book){
-        return new Book(3,"sample book","sample.png");
+       try{
+        Book newBook = bookJpaRepository.findById(bookId).get();
+        if(book.getName()!=null){
+            newBook.setName(book.getName());
+        }
+        if(book.getImageUrl()!=null){
+            newBook.setImageUrl(book.getImageUrl());
+        }
+        bookJpaRepository.save(newBook);
+        
+        return newBook;
+       }
+       catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+       }
     }
 
     @Override
