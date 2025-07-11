@@ -50,7 +50,7 @@ public class BookJpaService implements BookRepository {
             newBook.setImageUrl(book.getImageUrl());
         }
         bookJpaRepository.save(newBook);
-        
+
         return newBook;
        }
        catch(Exception e){
@@ -60,6 +60,11 @@ public class BookJpaService implements BookRepository {
 
     @Override
     public void deleteBook(int bookId){
-
+        try{
+            bookJpaRepository.deleteById(bookId);
+        }
+        catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }
