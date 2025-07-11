@@ -1,9 +1,25 @@
 package com.example.goodreads.model;
 
+import javax.persistence.*; // ❌ Spelling was wrong in your code: 'persistance'
+
+@Entity
+@Table(name = "book")
 public class Book {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "imageurl") // ❌ Remove the semicolon here
     private String imageUrl;
+
+    // ✅ Constructor name must match class name, and it shouldn't be public inside another class
+    public Book() {
+    }
 
     public Book(int id, String name, String imageUrl) {
         this.id = id;
@@ -34,5 +50,4 @@ public class Book {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
 }
