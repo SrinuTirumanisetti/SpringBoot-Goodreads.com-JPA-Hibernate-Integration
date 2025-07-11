@@ -35,7 +35,8 @@ public class BookJpaService implements BookRepository {
 
     @Override
     public Book addBook(Book book){
-        return new Book(3,"sample book","sample.png");
+        bookJpaRepository.save(book);
+        return book;
     }
 
     @Override
